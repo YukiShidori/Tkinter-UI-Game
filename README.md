@@ -1,5 +1,5 @@
 
-# Tkinter Mine Game
+# Tkinter UI Game
 
 This is just for learning Tkinter and CustomTkinter Libs.
 Any changes or improvements people have are welcomed.
@@ -21,6 +21,7 @@ Note: I am planning on adding automated installs for these
 ```
     
 ## Libraries
+Note: Try to avoid using the OS library when making changes to these
 The Libraries used in Classic are:
 ```
   cryptography
