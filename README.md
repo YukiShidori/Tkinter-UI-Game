@@ -21,6 +21,7 @@ Note: I am planning on adding automated installs for these
 ```
     
 ## Libraries
+Note: Try to avoid using the OS library when making changes to these
 The Libraries used in Classic are:
 ```
   customtkinter
