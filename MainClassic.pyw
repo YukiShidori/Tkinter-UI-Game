@@ -9,8 +9,11 @@ import threading
 import time
 
 CCount = 0
-a = "Coal: "
-CoalCount = a + str(CCount)
+C = "Coal: "
+CoalCount = C + str(CCount)
+ICount = 0
+I = "Iron: "
+IronCount = I + str(ICount)
 
 def generate_key():
     """Generate a key and save it to a file if it doesn't exist"""
@@ -39,6 +42,7 @@ def decrypt_data(encrypted_data, key):
 
 def LoadCoal():# reads how much coal is in the autosave file and then sets the variable for it
     global CCount
+    global ICount
     try:
         # Generate or load the key
         key = generate_key()
@@ -47,24 +51,34 @@ def LoadCoal():# reads how much coal is in the autosave file and then sets the v
             encrypted_data = file.read()
             if encrypted_data:  # Check if file is not empty
                 decrypted_data = decrypt_data(encrypted_data, key)
-                CCount = int(decrypted_data.strip())
+                CCount = int(decrypted_data.strip().split()[0])
+                ICount = int(decrypted_data.strip().split()[1])
             else:
                 CCount = 0
+                ICount = 0
     except FileNotFoundError:
         CCount = 0
+        ICount = 0
     except ValueError:
         CCount = 0
+        ICount = 0
     except Exception as e:
         print(f"Error loading coal: {e}")
         CCount = 0
+        ICount = 0
 
 def MineClick2():
     global CCount
     RandCoalNum = random.randint(1, 3)
+    global ICount
+    RandIronNum = random.randint(1, 3)
+    ICount += RandIronNum
     CCount += RandCoalNum
-    print("Click Detected: " + str(CCount))
-    CoalCount = a + str(CCount)
-    DisplayClick.configure(text=CoalCount)
+    print("Click Detected: C " + str(CCount) + " I " + str(ICount))
+    CoalCount = C + str(CCount)
+    IronCount = I + str(ICount)
+    DisplayCoal.configure(text=CoalCount)
+    DisplayIron.configure(text=IronCount)
 
 def Autosave():
     while True:
@@ -72,7 +86,7 @@ def Autosave():
             # Generate or load the key
             key = generate_key()
             
-            encrypted_data = encrypt_data(str(CCount), key)
+            encrypted_data = encrypt_data(str(CCount) + " " + str(ICount), key)
             with open('Data.dat', 'wb') as file:
                 file.write(encrypted_data)
             print("Autosave saved at", time.strftime('%X'))
@@ -104,17 +118,21 @@ root.resizable(False, False)
 underline = font.Font(family="Helvetica", size=16, underline=True)
 
 #       MainPlacements
-DisplayClick = tk.Label(root, bg='#242525', fg="White", text=CoalCount)
+DisplayCoal = tk.Label(root, bg='#242525', fg="White", text=CoalCount)
+DisplayIron = tk.Label(root, bg='#242525', fg="White", text=IronCount)
 message = tk.Label(root, bg='#242525', fg="White", text="Mine Clicker!", font=underline)
 MineClick = tk.Button(root, bg='#154970', fg="White", text="Mine", command=MineClick2, activebackground='#154970', activeforeground='White')
 MineClick.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
 message.pack()
-DisplayClick.pack()
+DisplayCoal.place(relx=0.05, rely=0.05, anchor=tk.NW)
+DisplayIron.place(relx=0.05, rely=0.09, anchor=tk.NW)
 
 #load saved data/create new save if not exist
 LoadCoal()
-CoalCount = a + str(CCount)
-DisplayClick.configure(text=CoalCount)
+CoalCount = C + str(CCount)
+IronCount = I + str(ICount)
+DisplayCoal.configure(text=CoalCount)
+DisplayIron.configure(text=IronCount)
 
 # start the autosave
 timer_thread = threading.Thread(target=Autosave)
