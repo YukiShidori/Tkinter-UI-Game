@@ -1,5 +1,5 @@
 
-# Tkinter Mine Game
+# Tkinter UI Game
 
 This is just for learning Tkinter and CustomTkinter Libs.
 Any changes or improvements people have are welcomed.
