@@ -37,7 +37,6 @@ The Libraries used in Modern are:
   cryptography
   threading
   pathlib
-  tkinter
   random
   time
 ```
