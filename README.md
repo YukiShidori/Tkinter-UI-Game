@@ -23,15 +23,16 @@ Note: I am planning on adding automated installs for these
 ## Libraries
 The Libraries used in Classic are:
 ```
-  customtkinter
   cryptography
   threading
   pathlib
+  tkinter
   random
   time
 ```
 The Libraries used in Modern are:
 ```
+  customtkinter
   cryptography
   threading
   pathlib
