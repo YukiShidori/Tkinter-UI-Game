@@ -291,7 +291,7 @@ class MineClicker:
                     file.write(encrypted_data)
             except Exception as e:
                 print(f"Error autosaving data: {e}")
-            time.sleep(30)
+            time.sleep(2.5)
 
 # Create and run the game
 if __name__ == "__main__":
